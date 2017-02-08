@@ -10,9 +10,12 @@ EXTRAS=$ROOT/extras
 
 export PATH=$PATH:/usr/local/sbin
 
-if ! pgrep -f rabbitmq; then
-  sudo echo
-  sudo rabbitmq-server > $BUILD_DIR/rabbit.log &
+if ! /etc/init.d/rabbitmq-server status
+then
+  echo "starting rabbitmq"
+  /etc/init.d/rabbitmq-server start
+else
+  echo "rabbitmq already running"
 fi
 
 cd $ROOT/nuve

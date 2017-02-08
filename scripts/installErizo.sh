@@ -10,8 +10,6 @@ BUILD_DIR=$ROOT/build
 CURRENT_DIR=`pwd`
 LIB_DIR=$BUILD_DIR/libdeps
 PREFIX_DIR=$LIB_DIR/build/
-NVM_CHECK="$PATHNAME"/checkNvm.sh
-
 
 export ERIZO_HOME=$ROOT/erizo
 
@@ -59,9 +57,6 @@ install_erizo(){
 install_erizo_api(){
   echo 'Installing erizoAPI...'
   cd $ROOT/erizoAPI
-  . $NVM_CHECK
-  nvm use
-  npm install nan@2.3.2
   ./build.sh
   check_result $?
   cd $CURRENT_DIR
