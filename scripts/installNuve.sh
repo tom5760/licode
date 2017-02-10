@@ -51,14 +51,16 @@ populate_mongo(){
   SERVID=`echo $SERVID| cut -d'"' -f 2`
   SERVID=`echo $SERVID| cut -d'"' -f 1`
 
-  if [ -f "$BUILD_DIR/mongo.log" ]; then
-    echo "Mongo Logs: "
-    cat $BUILD_DIR/mongo.log
-  fi
-
   echo [licode] SuperService ID $SERVID
   echo [licode] SuperService KEY $SERVKEY
+
+  if [ ! -d "$BUILD_DIR" ]
+  then
+    mkdir -p "$BUILD_DIR"
+  fi
+
   cd $BUILD_DIR
+
   replacement=s/_auto_generated_ID_/${SERVID}/
   sed $replacement $PATHNAME/licode_default.js > $BUILD_DIR/licode_1.js
   replacement=s/_auto_generated_KEY_/${SERVKEY}/

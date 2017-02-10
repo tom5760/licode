@@ -2,16 +2,14 @@
 
 set -e
 
-runcmake() {
-   cmake ../src
-   echo "Done"
-}
 BIN_DIR="build"
-if [ -d $BIN_DIR ]; then
-  cd $BIN_DIR
-  runcmake
-else
-  mkdir $BIN_DIR
-  cd $BIN_DIR
-  runcmake
+
+if [ ! -d "$BIN_DIR" ]
+then
+  mkdir -p "$BIN_DIR"
 fi
+
+cd "$BIN_DIR"
+cmake ../src
+
+echo "Done"

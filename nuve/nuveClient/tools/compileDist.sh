@@ -5,7 +5,9 @@ set -e
 mkdir ../dist || true
 mkdir ../build || true
 
-java -jar compiler.jar --js ../lib/xmlhttprequest.js --js_output_file ../dist/xmlhttprequest.js
+closure-compiler \
+  --js_output_file ../dist/xmlhttprequest.js \
+  --js ../lib/xmlhttprequest.js
 
 TARGET=../dist/nuve.js
 
