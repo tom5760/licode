@@ -46,7 +46,7 @@ struct CandidatePair{
 class IceConfig {
  public:
     std::string turnServer, turnUsername, turnPass;
-    std::string stunServer, network_interface, public_ip;
+    std::string stunServer, network_interface;
     uint16_t stunPort, turnPort, minPort, maxPort;
     bool shouldTrickle;
     IceConfig(){
@@ -60,7 +60,6 @@ class IceConfig {
       maxPort = 0;
       shouldTrickle = false;
       network_interface = "";
-      public_ip = "";
     }
 };
 
