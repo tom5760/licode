@@ -245,8 +245,7 @@ void NiceConnection::start() {
         lib_nice_->NiceAgentAttachRecv(agent_, 1, i, context_, reinterpret_cast<void*>(cb_nice_recv), this);
       }
     }
-    ELOG_DEBUG("%s message: gathering, this: %p", toLog(), this);
-    lib_nice_->NiceAgentGatherCandidates(agent_, 1);
+    ELOG_DEBUG("%s message: gathering, this: %p, result: %d", toLog(), this, lib_nice_->NiceAgentGatherCandidates(agent_, 1));
 }
 
 void NiceConnection::mainLoop() {

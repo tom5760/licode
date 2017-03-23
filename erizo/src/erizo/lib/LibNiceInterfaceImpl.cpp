@@ -9,6 +9,7 @@
 namespace erizo {
 
   NiceAgent* LibNiceInterfaceImpl::NiceAgentNew(GMainContext* context) {
+    nice_debug_enable(true);
     return nice_agent_new(context, NICE_COMPATIBILITY_RFC5245);
   }
   char* LibNiceInterfaceImpl::NiceInterfacesGetIpForInterface(const char *interface_name) {
