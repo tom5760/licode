@@ -219,9 +219,15 @@ void NiceConnection::start() {
 
     if (!iceConfig_.network_interface.empty()) {
       const char* public_ip = lib_nice_->NiceInterfacesGetIpForInterface(iceConfig_.network_interface.c_str());
+      ELOG_DEBUG("%s message: found local IP address, iface: %s, addr: %s", toLog(), iceConfig_.network_interface.c_str(), public_ip);
       if (public_ip) {
         lib_nice_->NiceAgentAddLocalAddress(agent_, public_ip);
       }
+    }
+
+    if (!iceConfig_.public_ip.empty()) {
+      ELOG_DEBUG("%s message: setting local IP address: %s", toLog(), iceConfig_.public_ip.c_str());
+      lib_nice_->NiceAgentAddLocalAddress(agent_, iceConfig_.public_ip.c_str());;
     }
 
     if (iceConfig_.turnServer.compare("") != 0 && iceConfig_.turnPort != 0) {
@@ -245,8 +251,7 @@ void NiceConnection::start() {
         lib_nice_->NiceAgentAttachRecv(agent_, 1, i, context_, reinterpret_cast<void*>(cb_nice_recv), this);
       }
     }
-    ELOG_DEBUG("%s message: gathering, this: %p", toLog(), this);
-    lib_nice_->NiceAgentGatherCandidates(agent_, 1);
+    ELOG_DEBUG("%s message: gathering, this: %p, result: %d", toLog(), this, lib_nice_->NiceAgentGatherCandidates(agent_, 1));
 }
 
 void NiceConnection::mainLoop() {
