@@ -217,8 +217,14 @@ void NiceConnection::start() {
           (guint)iceConfig_.maxPort);
     }
 
+    if (!iceConfig_.public_ip.empty()) {
+      ELOG_DEBUG("%s message: setting public ip: %s", toLog(), iceConfig_.public_ip.c_str())
+      lib_nice_->NiceAgentAddLocalAddress(agent_, iceConfig_.public_ip.c_str());
+    }
+
     if (!iceConfig_.network_interface.empty()) {
       const char* public_ip = lib_nice_->NiceInterfacesGetIpForInterface(iceConfig_.network_interface.c_str());
+      ELOG_DEBUG("%s message: found ip for iface: %s ip: %s", toLog(), iceConfig_.network_interface.c_str(), iceConfig_.public_ip.c_str())
       if (public_ip) {
         lib_nice_->NiceAgentAddLocalAddress(agent_, public_ip);
       }
